@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profil Sayfası</title>
+  <style>
+    /* Genel stil */
+html, body {
+  height: 100%;
+  background-color: #f1f1f1; /* Açık gri arka plan */
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff; /* Beyaz arka plan */
+  padding: 20px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Profil stili */
+.profile {
+  margin-right: 30px;
+  position: relative;
+}
+
+.profile h2 {
+  margin-bottom: 10px;
+}
+
+.profile ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.profile li {
+  margin-bottom: 5px;
+}
+
+.profile label {
+  font-weight: bold;
+}
+
+.edit-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-bottom: 10px;
+  background-color: transparent; /* Saydam */
+  border: 1px solid #333;/* Çerçeve eklemek için */
+  padding: 4px;
+  border-radius: 4px; /* Köşeleri oval */
+  color: #333;
+ 
+  cursor: pointer;
+}
+
+.edit-button::after {
+  content: "\270E"; /* Kalem simgesi */
+  display: inline-block;
+  font-size: 14px;
+  margin-left: 5px;
+  padding: 4px;
+  margin-left: 5px;
+}
+
+.edit-button span {
+  display: none;
+}
+
+
+
+/* Butonlar ve Actions stili */
+
+/* Medya sorguları */
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+
+  .actions {
+    position: static;
+    transform: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .actions button {
+    margin: 5px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <div class="profile">
+      <h2>My Profile</h2>
+      <button class="edit-button" onclick="redirectToEditPage()">Edit</button>
+      <script>
+        function redirectToEditPage(){
+          window.location.href="/edit";
+        }
+      </script>
+      <form action="/update" method="POST">
+        <ul>
+          <li>
+            <label>First Name:</label>
+            <input type="text" id="first-name" name="first-name" value="<%= firstName %>" required>
+          </li>
+          <li>
+            <label>Last Name:</label>
+            <input type="text" id="last-name" name="last-name" value="<%= lastName %>" required>
+          </li>
+          <li>
+            <label>Password:</label>
+            <input type="text" id="password" name="password" value=<%= password ? '*'.repeat(password.length) : '' %> required>
+          </li>
+          <li>
+            <label>Email Address:</label>
+            <input type="email" id="email" name="email" value="<%= email %>" required>
+          </li>
+          <li>
+            <label>Phone:</label>
+            <input type="tel" id="phone" name="phone" inputmode="numeric" pattern="0[0-9]{10}" value="<%= phoneNumber %>" required maxlength="11">
+            <small>Phone number must start with 0 and be 11 digits long.</small>
+          </li>
+          <li>
+            <label>Bio:</label>
+            <textarea id="bio" name="bio" required><%= bio %></textarea>
+          </li>
+        </ul>
+        <button type="submit">Save</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
